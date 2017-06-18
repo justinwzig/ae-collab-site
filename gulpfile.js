@@ -3,6 +3,8 @@
 //PLUGINS
 const gulp = require('gulp')
 
+const livereload=require('gulp-livereload')
+
 const pug = require('gulp-pug')
 
 const coffee = require('gulp-coffee')
@@ -14,7 +16,7 @@ const cleanCSS = require('gulp-clean-css')
 const source = 'src/**/*'
 const clientOutput = 'docs'
 const html = '.pug'
-const styles = '.sass'
+const styles = '.scss'
 const scripts = '.coffee'
 
 //DATA
@@ -31,6 +33,7 @@ gulp.task('html', function () {
   return gulp.src(source + html)
     .pipe(pug())
     .pipe(gulp.dest(clientOutput))
+    .pipe(livereload());
 })
 
 /* COMPILE SASS */
@@ -39,6 +42,7 @@ gulp.task('styles', function () {
     .pipe(sass())
     .pipe(cleanCSS())
     .pipe(gulp.dest(clientOutput))
+    .pipe(livereload());
 })
 
 /* COMPILE SASS */
@@ -47,10 +51,12 @@ gulp.task('scripts', function () {
     .pipe(coffee())
     .pipe(uglify())
     .pipe(gulp.dest(clientOutput))
+    .pipe(livereload());
 })
 
 /* WATCH */
 gulp.task('watch', function () {
+  livereload({ start: true })
   gulp.watch(source + html, ['html']).on('error', swallowError)
   gulp.watch(source + styles, ['styles']).on('error', swallowError)
   gulp.watch(source + scripts, ['scripts']).on('error', swallowError)

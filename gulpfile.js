@@ -12,7 +12,7 @@ const sass = require('gulp-sass')
 const cleanCSS = require('gulp-clean-css')
 
 const source = 'src/**/*'
-const clientOutput = 'public'
+const clientOutput = 'docs'
 const html = '.pug'
 const styles = '.sass'
 const scripts = '.coffee'
